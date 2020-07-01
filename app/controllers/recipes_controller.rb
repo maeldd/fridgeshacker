@@ -4,7 +4,10 @@ class RecipesController < ApplicationController
   # GET /recipes
   # GET /recipes.json
   def index
-    @recipes = Recipe.all
+    if params[:query].present?
+      fridge_ingredients = params[:query]
+      @recipes = Recipe.search_by_ingredients("%#{fridge_ingredients}%")
+    end
   end
 
   # GET /recipes/1
