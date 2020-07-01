@@ -1,12 +1,12 @@
 ## https://github.com/GlobalNamesArchitecture/damerau-levenshtein
-require "damerau-levenshtein"
+# require "damerau-levenshtein"
 
 class SearchRecipiesFromIngredients
-  MAX_LEVENSHTEIN_DISTANCE = 100
+  # MAX_LEVENSHTEIN_DISTANCE = 100
 
   def self.call(fridge_ingredients)
     recipes = pg_search(fridge_ingredients)
-    recipes = reject_recipes_with_other_ingredient(recipes, fridge_ingredients)
+    recipes = reject_recipes_with_other_ingredient(recipes, fridge_ingredients).sort_by { |k, v| v.join.length }
     # Explicite return
     return recipes
   end
@@ -27,11 +27,18 @@ class SearchRecipiesFromIngredients
     #     end
     #   end
     # end
+    # def reject_recipes_with_other_ingredient(recipes, fridge_ingredients)
+    #   recipes.select do |recipe|
+    #     # On veut avoir tous les ingredients de la recette sous forme de string pour la comparer
+    #     recipe_ingredients = recipe.ingredients.join(" ")
+    #     include_in_fridge?(recipe_ingredients, fridge_ingredients)
+    #   end
+    # end
+
     def reject_recipes_with_other_ingredient(recipes, fridge_ingredients)
       recipes.select do |recipe|
-        # On veut avoir tous les ingredients de la recette sous forme de string pour la comparer
-        recipe_ingredients = recipe.ingredients.join(" ")
-        include_in_fridge?(recipe_ingredients, fridge_ingredients)
+        # On compare la taille des array d'ingrédients
+        recipe.ingredients.size - fridge_ingredients.size <= 2
       end
     end
 
@@ -43,11 +50,11 @@ class SearchRecipiesFromIngredients
     #   end
     # end
 
-    def include_in_fridge?(recipe_ingredients, fridge_ingredients)
-      # Ici, je compars la différence le longueurs entre mes deux strings d'ingrédients
-      dst = DamerauLevenshtein.distance(fridge_ingredients, recipe_ingredients)
-      dst <= MAX_LEVENSHTEIN_DISTANCE && recipe_ingredients.size - fridge_ingredients.size <= 100
-    end
+    # def include_in_fridge?(recipe_ingredients, fridge_ingredients)
+    #   # Ici, je compars la différence le longueurs entre mes deux strings d'ingrédients
+    #   dst = DamerauLevenshtein.distance(fridge_ingredients, recipe_ingredients)
+    #   dst <= MAX_LEVENSHTEIN_DISTANCE && recipe_ingredients.size - fridge_ingredients.size <= 100
+    # end
   end
 end
 

@@ -33,7 +33,7 @@ gem 'font-awesome-sass'
 gem 'simple_form'
 
 gem 'pg_search'
-gem 'damerau-levenshtein'
+# gem 'damerau-levenshtein'
 
 group :development, :test do
   gem 'pry-byebug'
