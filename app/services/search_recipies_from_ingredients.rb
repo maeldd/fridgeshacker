@@ -6,7 +6,7 @@ class SearchRecipiesFromIngredients
 
   def self.call(fridge_ingredients)
     recipes = pg_search(fridge_ingredients)
-    recipes = reject_recipes_with_other_ingredient(recipes, fridge_ingredients).sort_by { |k, v| v.join.length }
+    recipes = reject_recipes_with_other_ingredient(recipes, fridge_ingredients)
     # Explicite return
     return recipes
   end
