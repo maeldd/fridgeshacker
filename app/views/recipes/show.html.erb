@@ -42,7 +42,9 @@
 
 <p>
   <strong>Ingredients:</strong>
-  <%= @recipe.ingredients %>
+  <% @recipe.ingredients.each do |ingredient| %>
+    <%=ingredient%>,
+  <% end %>
 </p>
 
 <p>
@@ -52,7 +54,9 @@
 
 <p>
   <strong>Tags:</strong>
-  <%= @recipe.tags %>
+  <% @recipe.tags.each do |tag| %>
+    <%=tag%>,
+  <% end %>
 </p>
 
 <p>

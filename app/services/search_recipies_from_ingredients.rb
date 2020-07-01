@@ -4,9 +4,9 @@
 class SearchRecipiesFromIngredients
   # MAX_LEVENSHTEIN_DISTANCE = 100
 
-  def self.call(fridge_ingredients)
+  def self.call(fridge_ingredients, margin)
     recipes = pg_search(fridge_ingredients)
-    recipes = reject_recipes_with_other_ingredient(recipes, fridge_ingredients)
+    recipes = reject_recipes_with_other_ingredient(recipes, fridge_ingredients, margin)
     # Explicite return
     return recipes
   end
@@ -35,10 +35,10 @@ class SearchRecipiesFromIngredients
     #   end
     # end
 
-    def reject_recipes_with_other_ingredient(recipes, fridge_ingredients)
+    def reject_recipes_with_other_ingredient(recipes, fridge_ingredients, margin)
       recipes.select do |recipe|
         # On compare la taille des array d'ingrédients
-        recipe.ingredients.size - fridge_ingredients.size <= 2
+        recipe.ingredients.size - fridge_ingredients.size <= margin
       end
     end
 

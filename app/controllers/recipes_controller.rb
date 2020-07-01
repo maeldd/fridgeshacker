@@ -6,7 +6,8 @@ class RecipesController < ApplicationController
   def index
     if params[:query].present?
       fridge_ingredients = params[:query].split(",")
-      @recipes = SearchRecipiesFromIngredients.call(fridge_ingredients)
+      margin = params[:quantity].nil? ? 0 : params[:quantity].to_i
+      @recipes = SearchRecipiesFromIngredients.call(fridge_ingredients, margin)
     end
   end
 

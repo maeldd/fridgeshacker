@@ -12,15 +12,15 @@
     <%= f.input :total_time %>
     <%= f.input :people_quantity %>
     <%= f.input :author_tip %>
-    <%= f.input :ingredients %>
+    <%= f.input :ingredients, multiple: true, hint: 'Entrez les ingrédients séparés par une ","'%>
     <%= f.input :name %>
-    <%= f.input :tags %>
+    <%= f.input :tags, multiple: true, hint: 'Entrez les ingrédients séparés par une ","'%>
     <%= f.input :image %>
     <%= f.input :nb_comments %>
     <%= f.input :cook_time %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, :class => "btn btn-primary" %>
   </div>
 <% end %>
