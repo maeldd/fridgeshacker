@@ -5,7 +5,7 @@ class RecipesController < ApplicationController
   # GET /recipes.json
   def index
     if params[:query].present?
-      fridge_ingredients = params[:query]
+      fridge_ingredients = params[:query].split(",")
       @recipes = SearchRecipiesFromIngredients.call(fridge_ingredients)
     end
   end
