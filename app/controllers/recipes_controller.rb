@@ -6,7 +6,7 @@ class RecipesController < ApplicationController
   def index
     if params[:query].present?
       fridge_ingredients = params[:query]
-      @recipes = Recipe.search_by_ingredients("%#{fridge_ingredients}%")
+      @recipes = SearchRecipiesFromIngredients.call(fridge_ingredients)
     end
   end
 
