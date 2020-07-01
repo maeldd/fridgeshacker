@@ -6,12 +6,18 @@
     class: "form-control",
     placeholder: "Entrez vos ingrédients séparés d'une virgule"
   %>
+  <p>Afin de poposer plus de recettes, choisissez combien d'ingrédients supplémentaires peut contenir la recettes :</p>
+  <%= number_field_tag :quantity,
+    params[:quantity],
+    class: "form-control",
+    placeholder: "4"
+  %>
   <%= submit_tag "Search", class: "btn btn-primary" %>
 <% end %>
 
 <h1>Recipes</h1>
 <% if @recipes.nil? %>
-  <p>Pas de recettes disponible pour vos ingrédients/p>
+  <p>Pas de recettes disponible pour vos ingrédients</p>
 <% else %>
   <h2><%= @recipes.count %></h2>
   <table>
