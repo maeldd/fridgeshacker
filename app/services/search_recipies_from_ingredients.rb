@@ -2,7 +2,7 @@
 require "damerau-levenshtein"
 
 class SearchRecipiesFromIngredients
-  MAX_LEVENSHTEIN_DISTANCE = 50
+  MAX_LEVENSHTEIN_DISTANCE = 100
 
   def self.call(fridge_ingredients)
     recipes = pg_search(fridge_ingredients)
@@ -46,7 +46,7 @@ class SearchRecipiesFromIngredients
     def include_in_fridge?(recipe_ingredients, fridge_ingredients)
       # Ici, je compars la différence le longueurs entre mes deux strings d'ingrédients
       dst = DamerauLevenshtein.distance(fridge_ingredients, recipe_ingredients)
-      dst <= MAX_LEVENSHTEIN_DISTANCE
+      dst <= MAX_LEVENSHTEIN_DISTANCE && recipe_ingredients.size - fridge_ingredients.size <= 100
     end
   end
 end
