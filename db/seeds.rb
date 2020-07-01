@@ -1,6 +1,6 @@
 require 'json'
 
-filepath = '/Users/maeldonnard/Downloads/recipes.json'
+filepath = 'recipes.json'
 
 serialized_recipes = File.read(filepath)
 
